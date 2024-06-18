@@ -1,0 +1,957 @@
+.Chat {
+	padding: 0;
+	display: flex;
+}
+
+.ChatSidebar {
+	width: 200px;
+	padding: 0;
+
+	overflow-y: auto;
+
+	background-color: var(--bg-color-2);
+	border-right: 1px solid var(--bg-color-3);
+
+	overflow-x: hidden;
+
+	z-index: 50;
+	box-shadow: 0 0 12px #000a;
+}
+
+.ChatSidebar.collapse {
+	animation: collapse .4s ease-in-out forwards;
+}
+
+.ChatSidebar.expand {
+	animation: expand .4s ease-in-out forwards;
+}
+
+@keyframes collapse {
+	0% { width: 200px; }
+	100% { width: 0px; }
+}
+
+@keyframes expand {
+	0% { width: 0px; }
+	100% { width: 200px; }
+}
+
+.ChatSidebar > hr {
+	margin-bottom: 0;
+}
+
+.ChatSidebar__Title {
+	margin: 0;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 18px;
+	user-select: none;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ChatSidebar__Title.first {
+	height: 54px;
+}
+
+.ChatSidebar__Add {
+	margin: 4px;
+	padding: 4px;
+	border-radius: 7px;
+	display: flex;
+	transition: .1s;
+}
+.ChatSidebar__Add:hover {
+	cursor: pointer;
+	background-color: var(--bg-color-3);
+}
+.ChatSidebar__Add:active {
+	background-color: var(--bg-color-4);
+}
+
+.Chat__ChanList {
+	border: none;
+	border-bottom: 1px solid var(--bg-color-4);
+	overflow-x: hidden;
+}
+
+.Chat__ChanListItem {
+	height: 36px;
+	width: calc(100% - 32px - 12px);
+
+	margin: 4px 6px;
+	padding: 4px 16px 2px;
+	border-radius: 7px;
+
+	user-select: none;
+
+	transition: .1s;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	color: var(--text-normal);
+}
+.Chat__ChanListItem:visited {
+	color: var(--text-normal);
+}
+
+.Chat__ChanListItem:hover {
+	cursor: pointer;
+	background-color: var(--bg-color-3);
+	color: var(--text-accent);
+}
+
+.Chat__ChanListItem:active {
+	background-color: var(--bg-color-4);
+}
+
+.Chat__ChanListItem.curr {
+	color: var(--text-accent);
+	background-color: var(--bg-color-4);
+}
+
+.Chat__ChanListItem.curr:hover {
+	cursor: pointer;
+}
+
+.Chat__ChanListItem img {
+	height: 32px;
+	width: 32px;
+	object-fit: cover;
+	border-radius: 7px;
+}
+
+.Chat__ChanListItem.dm {
+	height: 36px;
+	width: calc(100% - 24px - 12px);
+
+	margin: 4px 6px;
+	padding: 2px 16px 2px 8px;
+	border-radius: 7px;
+
+	user-select: none;
+
+	transition: .1s;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+	gap: 8px;
+
+	color: var(--text-normal);
+}
+
+.Chat__ChanListItemName {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: .86rem;
+}
+
+.Chat__ChanListItemSize {
+	margin-top: 1px;
+	font-size: .64rem;
+	overflow-x: hidden;
+	white-space: nowrap;
+	color: var(--text-faint);
+}
+
+/*
+** <ChatContent /> =============================================================
+*/
+
+.ChatContent {
+	position: relative;
+	flex: 1;
+	padding-top: 54px;
+	padding-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	overflow: hidden;
+	box-shadow: inset 0 0 48px #0004;
+}
+
+.ChatContent.nochan {
+	padding-top: 88px;
+	justify-content: start;
+	align-items: center;
+	font-size: 1.6rem;
+	font-weight: bold;
+	font-style: italic;
+	color: var(--bg-color-5);
+}
+
+.ChatContent.error {
+	justify-content: start;
+	padding: 30px;
+	color: var(--error);
+	font-style: italic;
+}
+
+.ChatContent.spinner {
+	justify-content: center;
+}
+
+.ChatContent__Mdp {
+	background: var(--bg-color-1);
+	position: relative;
+	flex: 1;
+	padding-top: 54px;
+	padding-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	box-shadow: inset 0 0 48px #0004;
+}
+
+.ChatContent__Mdp>.notice-msg, .ChatContent__Mdp>.error-msg {
+	font-size: 1rem;
+	margin-bottom: 12px;
+}
+
+.ChatContent__MdpInput {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.ChatContent__MdpInput input {
+	font-size: 1.2rem;
+	max-width: 220px;
+	padding: 0 8px;
+	height: 32px;
+}
+.ChatContent__MdpInput input::placeholder {
+	font-size: .92rem;
+}
+
+.ChatContent__MdpInput button {
+	height: 34px;
+}
+
+.Chat__Convo {
+	overflow-y: auto;
+	padding-bottom: 2px;
+}
+
+.Chat__Start {
+	font-size: .86rem !important;
+	margin: 32px 24px;
+}
+
+.Chat__Input {
+	position: absolute;
+	height: 100px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: var(--bg-color-3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 0 12px #000a;
+}
+
+.Chat__Input>textarea {
+	padding: 12px;
+	margin: 0;
+	width: calc(100% - 40px);
+	height: calc(100% - 40px);
+	resize: none;
+	background: var(--bg-color-2);
+	border: 1px solid var(--bg-color-4);
+	border-radius: 12px;
+	color: var(--text-normal);
+	font-size: .86rem;
+	font-family: "Bitstream Vera Sans", sans-serif;
+	box-shadow: inset 0 0 8px #0004;
+}
+
+.Chat__Input>textarea:focus {
+	outline: none;
+	padding: 11px;
+	border: 2px solid var(--bg-color-5);
+}
+
+.Chat__Input.join {
+	font-size: .92rem;
+	font-style: italic;
+	background: var(--bg-color-2);
+	border-top: 1px solid var(--bg-color-5);
+	flex-direction: column;
+	gap: 10px;
+	text-align: center;
+}
+
+.Chat__DmRequest {
+	display: flex;
+	flex-direction: row !important;
+	gap: 40px !important;
+}
+.Chat__DmRequest .Chat__Initiator {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	border-right: 2px solid var(--text-faint);
+	padding-right: 40px;
+}
+
+.Chat__DmRequest .accept {
+	border: 1px solid #6d9;
+	color: #6d9
+}
+.Chat__DmRequest .block {
+	border: 1px solid #e7a;
+	color: #e7a;
+}
+
+/*
+** <ChatHeader /> ==============================================================
+*/
+
+.ChatHeader {
+	font-size: 1.1rem;
+	font-weight: 600;
+	height: 54px;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	font-style: italic;
+	background: var(--bg-color-2);
+	border-bottom: 1px solid var(--bg-color-3);
+	box-shadow: 0 0 12px #000a;
+}
+
+.ChatHeader__Collapse {
+	min-width: 48px;
+	width: 48px;
+	height: 54px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid var(--bg-color-4);
+	transition: .1s;
+}
+.ChatHeader__Collapse:hover {
+	cursor: pointer;
+	background: var(--bg-color-3);
+}
+.ChatHeader__Collapse:active {
+	background: var(--bg-color-4);
+}
+
+.ChatHeader__Collapse>img {
+	height: 28px;
+}
+
+.ChatHeader__Main {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.ChatHeader__Title {
+	padding-left: 18px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.ChatHeader__Right {
+	display: flex;
+	align-items: center;
+}
+
+.ChatHeader__Right>button {
+	height: 30px;
+	border: 1px solid #c9a;
+	color: #c9a;
+}
+
+.ChatHeader__Edit {
+	height: 30px;
+	width: 30px;
+	padding: 4px;
+	margin-right: 12px;
+	display: flex;
+	align-items: center;
+	border-radius: 7px;
+}
+.ChatHeader__Edit:hover {
+	cursor: pointer;
+	background-color: var(--bg-color-3);
+}
+.ChatHeader__Edit:active {
+	background-color: var(--bg-color-4);
+}
+
+.ChatHeader__Edit>img {
+	width: 100%;
+}
+
+/*
+** <Msg /> =====================================================================
+*/
+
+.Msg {
+	background: var(--bg-color-2);
+	border-radius: 18px 18px 18px 0;
+	margin: 6px 8px;
+	padding: 6px 8px;
+	font-size: .84rem;
+	display: flex;
+}
+.Msg.me {
+	background: var(--bg-color-3);
+	border-radius: 18px 18px 0 18px;
+}
+
+.Msg.connectPrev {
+	margin-top: 0;
+	border-top: 1px solid var(--bg-color-3);
+	border-radius: 0 0 18px 0;
+}
+.Msg.connectPrev.me {
+	border-top: 1px solid var(--bg-color-4);
+	border-radius: 0 0 0 18px;
+}
+
+.Msg.connectNext {
+	margin-bottom: 0;
+	border-radius: 18px 18px 0 0;
+}
+
+.Msg.connectNext.Msg.connectPrev {
+	border-radius: 0px;
+}
+
+.Msg.blocked .Msg__Content {
+	display: flex;
+	align-items: center;
+	opacity: .6;
+}
+
+.Msg.blocked .Msg__Content .error-msg {
+	font-size: .82rem;
+}
+
+.Msg.blocked .Msg__Content button {
+	font-size: .86rem;
+	padding: 2px 4px;
+}
+
+.Msg__PictureDiv {
+	width: 48px;
+	height: 50px;
+	margin-right: 12px;
+}
+.Msg.connectPrev>.Msg__PictureDiv {
+	height: 0;
+}
+
+.Msg__PictureDiv img {
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 12px;
+	border: 1px solid var(--bg-color-5);
+}
+.Msg.connectPrev>.Msg__PictureDiv img {
+	display: none;
+}
+
+.Msg__Info {
+	margin-bottom: 4px;
+	color: var(--text-faint)
+}
+.Msg.connectPrev>div>.Msg__Info {
+	display: none;
+}
+
+.Msg__Sender {
+	font-size: .86rem;
+	margin-bottom: 4px;
+	margin-right: 4px;
+	display: inline-flex;
+	align-items: center;
+}
+
+.Msg__Sender>svg {
+	height: 1.2rem;
+	margin: -4px;
+	margin-left: 0;
+}
+
+.Msg__UsernameButtons {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.Msg__UsernameButtons button {
+	padding: 2px 6px;
+	margin-right: 0px;
+	border-radius: 7px;
+	font-size: .84rem;
+}
+
+.Msg__Date {
+	margin-left: 6px;
+	font-size: .72rem;
+	font-style: italic;
+}
+
+.Msg__ModActions {
+	display: inline-flex;
+	gap: 3px;
+	align-items: center;
+	margin-left: 6px;
+	opacity: .4;
+	transition: opacity 1.8s ease-in;
+}
+.Msg__ModActions:hover {
+	opacity: 1;
+	transition: .1s;
+}
+
+.Msg__ModActions.owner {
+	color: var(--text-faint);
+	opacity: .8;
+}
+
+.Msg__ModActions>button {
+	padding: 2px 3px;
+	margin: 0;
+	border-radius: 7px;
+	font-size: .84rem;
+}
+
+.Msg__ModActions>button.ban {
+	border: 1px solid #e7a;
+	color: #e7a;
+}
+.Msg__ModActions>button.kick {
+	border: 1px solid #c9a;
+	color: #c9a;
+}
+.Msg__ModActions>button.mute {
+	border: 1px solid #baa;
+	color: #baa;
+}
+.Msg__ModActions>button.admin {
+	border: 1px solid #69d;
+	color: #69d;
+}
+.Msg__ModActions>button.unadmin {
+	border: 1px solid #98d;
+	color: #98d;
+}
+
+/*
+** <ChanEdit /> ================================================================
+*/
+
+.ChanEdit {
+	position: relative;
+	top: auto;
+	left: auto;
+	right: auto;
+	bottom: auto;
+	overflow: hidden;
+	flex: 1;
+	padding-top: 54px;
+	padding-bottom: 0;
+	justify-content: start;
+}
+
+.ChanEdit__Scrollable {
+	overflow-y: auto;
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.ChanEdit__GlobOrLists {
+	margin: 5px 15px;
+	padding: 10px 15px;
+	display: flex;
+	gap: 10px;
+	font-weight: 600;
+}
+
+.ChanEdit__GlobOrListsItem {
+	flex: 1;
+	border-radius: 7px;
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	align-items: center;
+	font-size: .96rem;
+	width: 120px;
+	height: 36px;
+	transition: .1s;
+}
+.ChanEdit__GlobOrListsItem:hover {
+	cursor: pointer;
+	background-color: var(--bg-color-3);
+}
+.ChanEdit__GlobOrListsItem:active {
+	background-color: var(--bg-color-4);
+}
+
+.ChanEdit__GlobOrListsItem.true, .ChanEdit__GlobOrListsItem.operator {
+	color: var(--text-accent);
+	background-color: var(--bg-color-4);
+}
+
+.ChanEdit__GlobOrListsItem.operator:hover {
+	cursor: default;
+}
+
+.ChanEdit_Dm {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.ChanEdit_Dm > input {
+	width: 100%;
+}
+
+.ChanEdit__NameSection {
+	display: flex;
+	align-items: center;
+}
+
+.ChanEdit__NameLabel {
+	font-size: 1rem;
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+.ChanEdit__NameSection>input {
+	width: 100%;
+}
+
+.ChanEdit__Title {
+	font-size: 1rem;
+	font-weight: bold;
+	margin: 5px 0;
+	display: inline-flex;
+	align-items: center;
+}
+
+.ChanEdit__ModeButtons {
+	display: inline-flex;
+	width: calc(100%);
+	gap: 5px;
+	user-select: none;
+}
+
+.ChanEdit__ModeButtons>.ChanEdit__Title {
+	margin-right: 20px;
+}
+
+.ChanEdit__ModeButtons>label {
+	border-radius: 7px;
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	align-items: center;
+	font-size: .96rem;
+	flex: 1;
+	height: 36px;
+	transition: .1s;
+	padding: 0 10px;
+	min-height: 36px;
+}
+.ChanEdit__ModeButtons>label:hover {
+	cursor: pointer;
+	background-color: var(--bg-color-3);
+}
+.ChanEdit__ModeButtons>label:active {
+	background-color: var(--bg-color-4);
+}
+
+@media (max-width: 900px)
+{
+	.ChanEdit__ModeButtons {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.ChanEdit__ModeButtons>.ChanEdit__Title {
+		width: 100%;
+		margin-left: 15px;
+	}
+
+	.ChanEdit__ModeButtons>label {
+		width: min(100%, 240px);
+	}
+}
+
+.ChanEdit__ModeButtons>label>img {
+	height: 20px;
+}
+
+.ChanEdit__ModeButtons>label.true {
+	background-color: var(--bg-color-4);
+}
+
+.ChanEdit__ModeButtons>input {
+	display: none;
+}
+
+.ChanEdit .banned {
+	border-color: #e7a;
+}
+
+.ChanEdit .muted {
+	border-color: #ba9;
+}
+
+.ChanEdit .allowed {
+	border-color: #5ba;
+}
+
+.ChanEdit .admins {
+	border-color: #69d;
+}
+
+@media (min-width: 1400px)
+{
+	.ChanEdit__PublicModeDiv { flex-direction: row; }
+}
+
+.ChanEdit__SetPasswd {
+	margin-left: 10px;
+}
+
+.ChanEdit__SetPasswd>label {
+	font-size: .92rem;
+	font-style: italic;
+	color: var(--text-faint);
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.checkBox {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 1px;
+	padding: 2px;
+	background-clip: content-box;
+	border: 2px solid var(--text-faint);
+	border-radius: 5px;
+	height: 10px;
+	width: 10px;
+}
+.checkBox.true {
+	background-color: var(--link-normal);
+}
+
+.ChanEdit__SetPasswd>input {
+	display: none;
+}
+
+.ChanEdit__PasswdFields {
+	margin-top: 12px;
+	margin-left: 40px;
+	display: flex;
+	flex-direction: column;
+}
+
+.ChanEdit__PasswdFields>input {
+	margin-bottom: 15px;
+}
+
+.ChanEdit__PasswdFields>.error-msg {
+	font-size: .86rem;
+}
+
+.ChanEdit__FinalButtons {
+	display: flex;
+	justify-content: space-between;
+	margin-right: 6px;
+}
+
+.ChanEdit___AllOrRole {
+	margin: 10px 15px;
+	padding: 0px 15px 10px;
+	display: flex;
+	gap: 10px;
+	font-weight: 600;
+}
+
+.ChanEdit__AllOrRoleItem {
+	flex: 1;
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	align-items: center;
+	font-size: .92rem;
+	height: 28px;
+	margin: 0 20px;
+	border-bottom: 2px solid #aac0;
+	transition: border-color .1s;
+}
+.ChanEdit__AllOrRoleItem:hover {
+	cursor: pointer;
+	border-color: var(--text-faint);
+}
+.ChanEdit__AllOrRoleItem:active {
+	border-color: var(--text-accent);
+}
+
+.ChanEdit__AllOrRoleItem.true {
+	color: var(--text-accent);
+	border-color: var(--text-accent);
+}
+
+/*
+** <MemberList /> ==============================================================
+*/
+
+.MemberList {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.MemberListItem {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	gap: 10px;
+	background: var(--bg-color-3);
+	border-radius: 12px;
+	padding: 0px;
+	border: 1px solid var(--bg-color-5);
+}
+
+.MemberListItem img {
+	height: 42px;
+	width: 42px;
+	border-radius: 7px 0 0 7px;
+	object-fit: cover;
+}
+
+.MemberListItem .Msg__Sender {
+	font-size: .92rem;
+	min-width: 96px;
+}
+
+.MemberListItem .Msg__ModActions {
+	margin-left: 0;
+	opacity: 1;
+}
+
+.MemberListItem .Msg__ModActions button {
+	font-size: .92rem;
+}
+
+/*
+** <UserList /> ================================================================
+*/
+
+.UserList {
+	margin-top: 16px;
+	margin-left: 40px;
+	margin-bottom: 16px;
+	font-size: .95rem;
+}
+
+.UserList__Box {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-right: 10px;
+	margin-right: -10px;
+	width: calc(100% - 24px);
+	max-width: 600px;
+	margin-bottom: 18px;
+}
+
+@media (max-width: 900px)
+{
+	.ChanEdit__PasswdFields, .ChanEdit__UserList { margin-left: 20px; }
+}
+
+.UserList__Item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.UserList__Add {
+	display: flex;
+	font-size: .92rem;
+	justify-content: space-between;
+	align-items: center;
+	margin: 4px 0;
+	border: none;
+	width: calc(100% - 28px);
+	max-width: 600px;
+	padding: 0;
+	padding-right: 2px;
+	background: none;
+}
+
+.UserList__InputContainer {
+	width: calc(100% - 54px);
+}
+
+.UserList__Add input {
+	margin: 0;
+	height: 18px;
+	width: 100%;
+}
+
+.UserList__Item>button {
+	all: unset;
+	display: flex;
+	border-radius: 7px !important;
+	margin-right: 4px;
+	padding: 2px;
+	width: 24px;
+	height: 100%;
+}
+.UserList__Item>button:hover {
+	background-color: var(--bg-color-5);
+}
+.UserList__Item>button:active {
+	background: none;
+}
+
+.UserList__Add>button {
+	all: unset;
+	display: flex;
+	border-radius: 7px;
+	padding: 2px;
+	width: 24px;
+}
+.UserList__Add>button:hover {
+	background-color: var(--bg-color-4);
+}
+.UserList__Add>button:active {
+	background-color: var(--bg-color-5);
+}
+.UserList__Add>button:disabled {
+	background: none;
+	opacity: .7;
+}

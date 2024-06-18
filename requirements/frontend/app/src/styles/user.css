@@ -1,0 +1,164 @@
+.User__Infos {
+	display: flex;
+	gap: 16px;
+	max-height: min-content;
+	align-items: center;
+}
+
+.User__PictureContainer {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	border-radius: 12px;
+	height: 160px;
+	min-width: 160px;
+	border: 1px solid var(--bg-color-5);
+	box-shadow: 0 0 8px -3px #0008;
+}
+
+.User__Picture {
+	position: relative;
+	width: 160px;
+	height: 160px;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.User__Camera {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #0006;
+	opacity: 0;
+}
+.User__Camera:hover {
+	backdrop-filter: blur(4px);
+	cursor: pointer;
+	animation: camera-fade .8s forwards ease-out;
+}
+
+@keyframes camera-fade {
+	0% { opacity: 1; }
+	100% { opacity: .7; }
+}
+
+.User__Camera>img {
+	height: 80%;
+}
+
+.User__PictureBg {
+	position: absolute;
+	display: none;
+}
+
+@media (max-width: 800px) {
+	.User__Infos {
+		flex-direction: column;
+	}
+
+	.User__PictureContainer {
+		position: relative;
+		height: 192px;
+		width: 100%;
+	}
+
+	.User__PictureBg {
+		position: absolute;
+		top: 0;
+		display: block;
+		width: 100%;
+		height: 192px;
+		object-fit: cover;
+		filter: blur(15px);
+	}
+
+	.User__Picture {
+		z-index: 1;
+		border-radius: 0;
+		border: none;
+		width: 192px;
+		height: 192px;
+		box-shadow: 0 0 32px #0008;
+	}
+}
+
+.User__InfoItems {
+	width: 100%;
+	overflow: auto;
+}
+
+.User__InfoItems>* {
+	display: grid;
+	grid-column-gap: 20px;
+	grid-template-columns: 1.2fr 2.5fr;
+	min-width: fit-content;
+	overflow-x: visible;
+	height: 38px;
+}
+
+.User__InfoItems>*>* {
+	display: flex;
+	align-items: center;
+}
+.User__InfoItems>*>*:first-child {
+	border-right: 1px solid var(--bg-color-5);
+	font-weight: 600;
+}
+
+.User__Status {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.Status.offline {
+	color: var(--text-faint);
+}
+.Status.online {
+	color: #6d9;
+}
+.Status.game {
+	color: #6DF;
+}
+
+.User__FriendItem {
+	display: grid;
+	padding: 0;
+	grid-column-gap: 2px;
+	grid-template-columns: .8fr 2fr 1fr 3fr;
+}
+
+.User__FriendItem>div {
+	display: flex;
+	align-items: center;
+}
+
+.User__FriendItem>div:last-child {
+	display: flex;
+	justify-content: end;
+}
+
+.User__InvitePlayer {
+	width:100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.User__EditButton {
+	margin-left: 3px;
+}
+
+.Historic__Victory {
+	color: #0a7;
+}
+
+.Historic__Defeat {
+	color: #d35;
+}

@@ -1,0 +1,414 @@
+/*
+** Animations ==================================================================
+*/
+
+@keyframes spin
+{
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(180deg); }
+}
+
+@keyframes fadein
+{
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes glow
+{
+	0% { filter: drop-shadow(0 0 8px #fff6); }
+	100% { filter: brightness(2) drop-shadow(0 0 8px #ffff); }
+}
+
+/*
+** Login =======================================================================
+*/
+
+.Login {
+	font-size: 1rem;
+	color: var(--text-normal);
+	background: var(--bg-color-4);
+	border: 1px solid var(--bg-color-5);
+	padding: 5px 12px;
+	height: 26px;
+	width: fit-content;
+	border-radius: 7px;
+	transition: .1s;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+.Login:visited {
+	color: var(--text-normal);
+}
+.Login:hover {
+	background: var(--bg-color-5);
+	color: var(--text-accent);
+	cursor: pointer;
+}
+.Login:active {
+	background: var(--bg-color-4);
+}
+
+.Login > img {
+	height: 100%;
+}
+
+/*
+** MainContent =================================================================
+*/
+
+.MainContent {
+	background: var(--bg-color-1);
+	position: fixed;
+	z-index: 1;
+	top: 56px;
+	left: 200px;
+	right: 0;
+	bottom: 0;
+	padding: 15px 25px 80px;
+	overflow-y: auto;
+	transition: .1s;
+}
+
+@media (min-width: 1100px) { .MainContent{ padding: 15px 50px 80px; }}
+
+@media (min-width: 1400px) { .MainContent { padding: 15px 100px 80px; }}
+
+@media (min-width: 1700px) { .MainContent { padding: 15px 150px 80px; }}
+
+@media (min-width: 2000px) { .MainContent { padding: 15px 200px 80px; }}
+
+@media (max-width: 900px) { .MainContent { left: 66px; }}
+
+@media (max-width: 600px)
+{
+	.MainContent { padding: 15px 20px 80px 20px; left: 0; bottom: 58px; }
+}
+
+/*
+** Spinner =====================================================================
+*/
+
+.Spinner {
+	display: flex;
+	justify-content: center;
+	height: 80px;
+}
+
+.Spinner > img {
+	width: 50px;
+	animation:
+		spin .8s ease-in-out infinite,
+		fadein 1s ease-in-out,
+		glow alternate ease-in-out .8s infinite;
+}
+
+/*
+** GenericList =================================================================
+*/
+
+.genericList {
+	background: var(--bg-color-3);
+	border: 1px solid var(--bg-color-5);
+	padding: 0px;
+	margin: 0px;
+	border-radius: 7px;
+	overflow-x: auto;
+	box-shadow: 0 0 8px -3px #0008;
+	font-size: .92rem;
+}
+
+.genericList > * {
+	margin: 0;
+	border: 1px solid #0000;
+	animation: fadein .15s ease-in-out;
+	background: var(--bg-color-4);
+	border-radius: 0px;
+	color: var(--text-normal);
+	overflow-x: visible;
+	min-width: fit-content;
+	transition: filter .1s, color .2s, text-shadow .2s, border .2s;
+}
+
+.genericListHead {
+	border-bottom: 1px solid var(--text-faint);
+}
+.genericListHead>* {
+	font-weight: bold;
+}
+
+.genericList > *:nth-child(odd) {
+	background: var(--bg-color-3);
+}
+
+.genericList > *:first-child {
+	border-radius: 7px 7px 0 0;
+}
+
+.genericList > *:last-child {
+	border-radius: 0 0 7px 7px;
+}
+
+.genericList > *:first-child:last-child {
+	border-radius: 7px;
+}
+
+.genericList > * > * {
+	font-size: .86rem;
+	border: 2px solid #0000;
+	margin: -1px;
+	padding: 5px;
+	z-index: 50;
+}
+.genericList > * > *:first-child {
+	border-radius: 7px 0 0 7px;
+}
+.genericList > * > *:last-child {
+	border-radius: 0 7px 7px 0;
+}
+
+/*
+** Notifs ======================================================================
+*/
+
+.Notifs {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	z-index: 100;
+	pointer-events: none;
+}
+
+.Notif {
+	font-size: .92rem;
+	color: var(--text-accent);
+	background-color: #464c60cc;
+	border: 1px solid var(--text-faint);
+	padding: 5px;
+	margin-top: 3px;
+	width: 250px;
+	max-height: 100px;
+	border-radius: 7px;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+
+.Notif__Top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.Notif__Date {
+	color: var(--text-faint);
+	font-size: .74rem;
+}
+
+.Notif button {
+	padding: 0;
+	margin: 0;
+	width: 20px;
+	height: 20px;
+	pointer-events: auto;
+}
+
+.Notif img {
+	width: 100%;
+}
+
+.Notif__Content {
+	padding: 5px;
+	font-size: .88rem;
+	line-height: 1rem;
+	max-height: 3.6rem;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+}
+
+.Notif.err {
+	background: #d35c;
+	border-color: #f9a;
+}
+
+.fadeout {
+	animation: fadeout 2s ease-in-out forwards;
+}
+
+@keyframes fadeout
+{
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+/*
+** RequireAuth
+*/
+
+.RequireAuth {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 80px;
+	gap: 20px;
+}
+
+.RequireAuth > span {
+	font-weight: bold;
+	font-size: 1.15rem;
+}
+
+/*
+** Auth ========================================================================
+*/
+
+.Auth {
+	display: flex;
+	justify-content: center;
+	align-items: start;
+}
+
+.Auth__Done {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.Auth__Done img {
+	animation: fadein .5s ease-in-out forwards;
+	filter:
+		brightness(0) saturate(100%) invert(65%) sepia(38%) saturate(1474%)
+		hue-rotate(106deg) brightness(94%) contrast(101%);
+}
+
+.Auth__Fail {
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.Auth__Fail>h3 {
+	margin-bottom: 0;
+}
+
+.Auth__Fail img {
+	animation: fadein .5s ease-in-out forwards;
+	filter:
+		brightness(0) saturate(100%) invert(36%) sepia(75%) saturate(4156%)
+		hue-rotate(329deg) brightness(89%) contrast(94%);
+}
+
+/*
+** Popup =======================================================================
+*/
+
+@keyframes fadeinBG
+{
+	0% { background: #0000; }
+	100% { background: #0008; }
+}
+
+.Popup__Bg {
+	position: absolute;
+	backdrop-filter: blur(4px);
+	top: 0; bottom: 0; left: 0; right: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	animation: fadein .1s ease-in-out, fadeinBG .3s ease-in-out forwards;
+}
+
+.Popup {
+	border: 1px solid var(--bg-color-5);
+	border-radius: 7px;
+	padding: 12px;
+	padding-top: 0;
+	margin: 48px;
+	background: var(--bg-color-2);
+	max-width: 500px;
+}
+
+.DeletePopup__Notice {
+	margin-bottom: 20px;
+	font-size: .92rem;
+	font-style: italic;
+}
+
+.DeletePopup__Buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+/*
+** Setup2fa ====================================================================
+*/
+
+.Setup2fa__Status {
+	display: flex;
+	gap: 5px;
+	margin-bottom: 15px;
+}
+
+.Setup2fa__Status img {
+	animation: fadein .5s ease-in-out forwards;
+	filter:
+		brightness(0) saturate(100%) invert(65%) sepia(38%) saturate(1474%)
+		hue-rotate(106deg) brightness(94%) contrast(101%);
+}
+
+.Setup2fa__Info {
+	margin-bottom: 15px;
+}
+
+/*
+** Invites ====================================================================
+*/
+
+.Invites {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	z-index: 100;
+	pointer-events: none;
+}
+
+.Invite {
+	font-size: .92rem;
+	color: var(--text-accent);
+	background-color: #464c60cc;
+	border: 1px solid var(--text-faint);
+	padding: 5px;
+	padding-right: 0;
+	margin-top: 3px;
+	width: 250px;
+	max-height: 100px;
+	border-radius: 7px;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	text-align: center;
+}
+
+.Invite__Buttons {
+	width:100%;
+  	display: flex;
+  	justify-content: center;
+}
+
+.Invite button {
+	padding: 0;
+	margin: 0;
+	margin-top: 3px;
+	margin-right: 5px;
+	width: 75px;
+	height: 25px;
+	pointer-events: auto;
+}

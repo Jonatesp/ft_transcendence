@@ -1,0 +1,33 @@
+.Construction {
+	margin-top: 50px;
+	font-size: 1.4rem;
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.Construction__Icon {
+	min-width: 90px;
+	background: transparent;
+	animation: glow alternate ease-in-out 1.5s infinite;
+}
+
+.Construction__Text > div {
+	line-height: 1.4em;
+	border: none;
+	background: none;
+	margin: 5px 15px;
+	width: fit-content;
+}
+
+@keyframes glow {
+	0% {
+		filter: drop-shadow(0 0 8px #fff6);
+	}
+
+	100% {
+		filter: brightness(2) (0 0 8px #ffff);
+	}
+}

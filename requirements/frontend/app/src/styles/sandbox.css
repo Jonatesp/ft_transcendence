@@ -1,0 +1,64 @@
+.Sandbox__ContextList {
+	overflow: hidden;
+}
+
+.Sandbox__Item {
+	display: flex;
+	flex-direction: row;
+}
+
+.Sandbox__Item>div {
+	white-space: nowrap;
+	padding: 2px;
+	padding-left: 12px;
+	display: flex;
+	align-items: center;
+}
+
+.Sandbox__Item>div:first-child {
+	width: 180px;
+	border-right: 1px solid var(--bg-color-5);
+}
+
+.Sandbox__Item>div:nth-child(2) {
+	flex: 1;
+}
+
+.Sandbox__Item button {
+	border: none;
+	padding: 2px;
+	display: flex;
+	align-items: center;
+	margin: 0 8px;
+	color: var(--text-accent);
+	background-color: var(--error-bg);
+}
+.Sandbox__Item button:hover {
+	background-color: var(--error-bg);
+	filter: brightness(1.4);
+}
+.Sandbox__Item button:active {
+	filter: none;
+}
+
+.Sandbox__Item button.logAs {
+	height: 28px;
+	padding: 0 6px;
+	color: var(--text-normal);
+	background-color: var(--bg-color-2);
+	border: 1px solid var(--bg-color-5);
+}
+.Sandbox__Item button:hover {
+	filter: brightness(1.4);
+}
+.Sandbox__Item button:active {
+	filter: none;
+}
+
+.Sandbox__Scrollable {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-right: 10px;
+	margin-right: -10px;
+}
