@@ -1,12 +1,34 @@
 
 # ft_transcendence
 
-The last project of 42's common core program. We have to build a single page website with a functionnal chat and playable minigames (pong game for example).
+The last project of 42's common core program. We have to build a single page website with a functionnal chat and playable Pong games.
 
 We use NestJs and React there for.
 
+## Environment Variables
 
+To run this project, you will need to add the following environment variables to your .env file in the ./srcs folder.
 
+```
+#NGINX
+DOMAIN_NAME="localhost"
+
+#FRONTEND
+
+#BACKEND
+
+#DATABASE
+
+DB_USER="VJpQU75G2yMAJ2DxFrjugmCdEksXBwhj"
+DB_PASSWORD="mOgjYgmZgvHQQMU0rZsdPOobfqHEGjbW"
+DB_NAME="pong42"
+
+#42API
+
+API42_CLIENT_ID="u-s4t2ud-..."
+API42_SECRET="s-s4t2ud-..."
+
+```
 
 ## API Paths
 
@@ -273,28 +295,4 @@ Example general purpose body:
 {
     "content": "Bonjour"
 }
-```
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file in the ./srcs folder.
-
-```
-#NGINX
-DOMAIN_NAME="localhost"
-
-#FRONTEND
-
-#BACKEND
-
-#DATABASE
-
-DB_USER="VJpQU75G2yMAJ2DxFrjugmCdEksXBwhj"
-DB_PASSWORD="mOgjYgmZgvHQQMU0rZsdPOobfqHEGjbW"
-DB_NAME="pong42"
-
-#42API
-
-API42_CLIENT_ID="u-s4t2ud-..."
-API42_SECRET="s-s4t2ud-..."
-
 ```
